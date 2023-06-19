@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array of Object</title>
+  </head>
+  <style>
+    body{
+        background-color: burlywood;
+        color: black;
+
+    }
+    h2{
+        color: brown;
+    }
+    p{
+        background-color: cadetblue;
+    }
+  </style>
+  <body>
+    <h1><pre>
+      "let studentRecords = [ {name: 'John', id: 123, marks : 98 }, {name:
+      'Baba', id: 101, marks : 23 }, {name: 'yaga', id: 200, marks : 45 },
+      {name: 'Wick', id: 115, marks : 75 } ] "</pre>
+    </h1>
+
+    <h2>
+      Q-1 "We are interested in retrieving only the students' names; all the
+      names should be in caps. ['JOHN', 'BABA', 'YAGA', 'WICK']"
+    </h2>
+
+    <pre>
+ studentRecords.map((item)=>{
+                console.log(item.name.toUpperCase())
+           })</pre
+    >
+
+    <pre>
+Output:
+            ['JOHN', 'BABA', 'YAGA', 'WICK']
+           </pre
+    >
+
+    <p>
+      In this example, the map method is used to iterate over each object in the
+      studentRecords array. For each object, the name property is accessed and
+      converted to uppercase using the toUpperCase() method. The resulting array
+      of uppercase names is stored in the studentNames variable.
+    </p>
+
+    <h2>
+      Q-2 "Suppose we have the same dataset as above but this time we want to
+      get the details of students who scored more than 50 marks. [{name: 'John',
+      id: 123, marks: 98 },{name: 'Wick', id: 115, marks: 75 }]"
+    </h2>
+
+    <pre>
+                //with map
+                studentRecords.map((item)=>{
+                if(item.marks>50){
+                    console.log(item)
+                }
+           })
+   
+           // with filter
+           let student = studentRecords.filter((item)=>{
+               return(item.marks>50)
+          })
+          
+          console.log(student)</pre
+    >
+
+    <pre>
+Output:
+            [{name: 'John', id: 123, marks: 98 },{name: 'Wick', id: 115, marks: 75 }]
+          </pre
+    >
+    <p>
+      the filter method is used to iterate over each object in the
+      studentRecords array. The callback function checks if the marks property
+      of each student is greater than 50. If true, the student object is
+      included in the passedStudents array.
+    </p>
+    <h2>
+      Q-3 Retrieve the details of students who scored more than 50 marks and
+      have IDs greater than 120.
+    </h2>
+
+    <pre>
+            let student = studentRecords.filter((item)=>{
+                return(item.marks>50)
+           })
+          let name1 = student.filter((stdname)=>{
+                    return (stdname.id>120)
+                })
+           console.log(name1)
+
+          </pre
+    >
+
+    <pre>
+Output:
+[
+            { name: 'John', id: 123, marks: 98 },
+            { name: 'yaga', id: 200, marks: 45 }
+          ]</pre
+    >
+    <p>
+      , the filter method is used to iterate over each object in the
+      studentRecords array. The callback function checks if the marks property
+      of each student is greater than 50 and the id property is greater than
+      120. Only the students who satisfy both conditions will be included in the
+      filteredStudents array. The output will be an array of student objects who
+      scored more than 50 marks and have IDs greater than 120:
+    </p>
+
+    <h2>
+      Q-4 Consider the same scenario we have discussed above, but this time we
+      would like to know the sum total of the marks of the students.
+    </h2>
+    <pre>
+       let sum = studentRecords.reduce((prevalue,curvalue)=>{
+                return prevalue+=curvalue.marks
+            },0)
+       console.log(sum)</pre
+    >
+
+    <pre>
+Output:
+        241
+       </pre
+    >
+    <p>
+      the reduce method is used to iterate over each object in the
+      studentRecords array. The accumulator sum is initialized with a value of
+      0. For each student, their marks property is added to the sum. The final
+      result is the total sum of all the marks.
+    </p>
+    <h2>
+      Q-5 This time we want to get only the names of the students who scored
+      more than 50 marks from the same dataset used above.
+    </h2>
+
+    <pre>
+let student = studentRecords.filter((item)=>{
+        return(item.marks>50)
+   })
+  let name1 = student.map((stdname)=>{
+            return (stdname.name)
+        })
+   console.log(name1)</pre
+    >
+
+    <pre>[ 'John', 'Wick' ]</pre>
+
+    <p>
+      the filter method is used to iterate over each object in the
+      studentRecords array and filter out the students who scored more than 50
+      marks. Then, the map method is used to extract only the name property of
+      each remaining student. The output will be an array containing the names
+      of the students who scored more than 50 marks:
+    </p>
+
+    <h2>
+      Q-6 This time we are required to print the sum of marks of the students
+      with id > 120.
+    </h2>
+    <pre>
+let student = studentRecords.filter((item)=>{
+    return(item.id>120)
+})
+let sum = student.reduce((prevalue,curvalue)=>{
+        return prevalue+=curvalue.marks
+    },0)
+console.log(sum)</pre
+    >
+
+    <pre>
+Output:
+143
+</pre
+    >
+    <p>
+      the filter method is used to iterate over each object in the
+      studentRecords array and filter out the students with IDs greater than
+      120. Then, the reduce method is used to calculate the sum of their marks.
+      The initial value of the accumulator sum is set to 0, and for each
+      student, their marks property is added to the sum. The output will be the
+      sum of marks of the students with IDs greater than 120:
+    </p>
+    <h2>
+      Q-7 This time we are required to print the total marks of the students
+      with marks greater than 50 after a grace of 15 marks has been added to
+      those students who scored less than 50.
+    </h2>
+
+    <pre>
+        let totalMarks = studentRecords
+        .map((student) => {
+          if (student.marks < 50) {
+            student.marks += 15;
+          }
+          return student;
+        })
+        .filter((student) => student.marks > 50)
+        .reduce((sum, student) => sum + student.marks, 0)
+        
+        console.log('Total marks of students with marks greater than 50:', totalMarks);
+    </pre>
+    <pre>
+Output:
+        188
+    </pre>
+    <p>
+      The map method is used to iterate over each student record and modify the
+      marks if necessary by adding 15 to those who scored less than 50. The
+      updated array is returned. The filter method is then used to filter out
+      the students whose marks are still less than or equal to 50. Finally, the
+      reduce method is used to sum up the marks of the filtered students,
+      starting from an initial value of 0.
+    </p>
+
+    <h2>
+      Q-8 Create 6 objects , each object will have name, class, roll no as
+      properties. Store these objects in an array of objects.
+    </h2>
+
+    <pre>
+let obj1 = { name: 'John', class: 'A', rollNo: 1 };
+        let obj2 = { name: 'Alice', class: 'B', rollNo: 2 };
+        let obj3 = { name: 'Mike', class: 'A', rollNo: 3 };
+        let obj4 = { name: 'Emma', class: 'B', rollNo: 4 };
+        let obj5 = { name: 'Tom', class: 'A', rollNo: 5 };
+        let obj6 = { name: 'Sarah', class: 'B', rollNo: 6 };
+        
+        // Store the objects in an array
+        let arrayOfObjects = [obj1, obj2, obj3, obj4, obj5, obj6];
+        
+        console.log(arrayOfObjects);</pre
+    >
+
+    <pre>
+Output:
+            [
+  { name: 'John', class: 'A', rollNo: 1 },
+  { name: 'Alice', class: 'B', rollNo: 2 },
+  { name: 'Mike', class: 'A', rollNo: 3 },
+  { name: 'Emma', class: 'B', rollNo: 4 },
+  { name: 'Tom', class: 'A', rollNo: 5 },
+  { name: 'Sarah', class: 'B', rollNo: 6 }
+       ]
+        </pre
+    >
+
+    <p>
+      we create six objects with properties name, class, and rollNo. Then, we
+      store these objects in an array called arrayOfObjects. Finally, we log the
+      array to the console.
+    </p>
+  </body>
+</html>
